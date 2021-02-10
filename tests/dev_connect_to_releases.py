@@ -2,10 +2,9 @@ import unittest
 import os
 import shutil
 import requests
-from pprint import pprint
 
-# pkg_link = "https://github.com/Krande/blender_addons/releases/download/master_0.0.1/bl_measure.zip"
-pkg_link = "https://github.com/Krande/blender_addons/releases/download/bl_measure_0.0.1/bl_measure.zip"
+pkg_link = "https://github.com/Krande/blender_addons/releases/download/latest/bl_measure.zip"
+
 
 def download_to(destination, url):
     import urllib.request
@@ -17,16 +16,18 @@ def download_to(destination, url):
             shutil.copyfileobj(response, out_file)
 
 class MyTestCase(unittest.TestCase):
+    def test_query_asset_simple(self):
+        api_url = 'https://api.github.com/repos/Krande/blender_addons/releases/latest'
+        r = requests.get(api_url)
+        content = r.json()
+        tag_name = content['tag_name']
+        release = tag_name.split('_')[-1]
+        print(release)
+
+
     def test_download_asset(self):
-        url = "https://api.github.com/repos/{owner}/{repo}/releases/assets"
-        url = pkg_link
-        headers = {
-            "accept": "application/vnd.github.v3+json",
-            "token": ""
-        }
-        # r = requests.get(url, params=dict(owner='Krande', repo='blender_addons'), headers=headers).json()
         download_to('c:/temp/bl_measure.zip', pkg_link)
-        # pprint(r)
+
 
 
 

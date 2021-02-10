@@ -10,6 +10,7 @@ class MeasureUtilPanel(bpy.types.Panel):
 
     def draw(self, context):
         layout = self.layout
+        # TODO: Add button for self-updating check and method for download based on dev_connect_to_release.py
         scene_props = context.scene.MeasureProperties
         layout.row().operator('view3d.get_coord_from_3dcursor', text='Get position from 3d cursor')
 
