@@ -2,9 +2,9 @@ import bpy
 
 
 class MeasureUtilPanel(bpy.types.Panel):
-    bl_idname = "MeasureUtil_PT_Panel"
-    bl_label = "Measurement Util (Hello World)"
-    bl_category = "Measure Util"
+    bl_idname = "Measure_simple_PT_Panel"
+    bl_label = "Measure (Simple)"
+    bl_category = "Measure"
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
 

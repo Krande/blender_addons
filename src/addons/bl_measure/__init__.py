@@ -1,6 +1,6 @@
 bl_info = {
-    "name": "Measure (Hello World)",
-    "description": "The simplest possible utility to make measurements",
+    "name": "Simply Measure",
+    "description": "A simple utility to make measurements",
     "author": "Kristoffer H. Andersen",
     "blender": (2, 90, 1),
     "version": (0, 0, 99),

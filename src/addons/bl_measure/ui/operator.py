@@ -2,9 +2,9 @@ import bpy
 import numpy as np
 
 
-class HelloWorldMeasureOperator(bpy.types.Operator):
+class SimpleMeasureOperator(bpy.types.Operator):
     bl_idname = "view3d.get_coord_from_3dcursor"
-    bl_label = "Hello World"
+    bl_label = "Measure (Simple)"
     bl_description = "Measure Data"
 
     def execute(self, context):
@@ -33,7 +33,7 @@ class HelloWorldMeasureOperator(bpy.types.Operator):
         return {"FINISHED"}
 
 
-class HelloWorldMeasureAddToClipBoardOperator(bpy.types.Operator):
+class SimpleMeasureAddToClipBoardOperator(bpy.types.Operator):
     bl_idname = "view3d.copy_coords_to_clipboard"
     bl_label = "Copy Measurements to Clipboard"
     bl_description = "Copy Measure Data to ClipBoard"

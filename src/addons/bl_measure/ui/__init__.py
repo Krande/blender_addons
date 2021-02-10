@@ -3,8 +3,8 @@ from . import prop, operator, panel
 
 classes = [
     prop.MeasureProps,
-    operator.HelloWorldMeasureOperator,
-    operator.HelloWorldMeasureAddToClipBoardOperator,
+    operator.SimpleMeasureOperator,
+    operator.SimpleMeasureAddToClipBoardOperator,
     panel.MeasureUtilPanel,
 ]
 
