@@ -1,0 +1,33 @@
+name: Publish-bl_measure
+
+# Run this workflow every time a new commit pushed to your repository
+on: push
+
+env:
+  major: 0
+  minor: 0
+  patch: 1
+  name: bl_measure
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build:
+    name: Publish Package
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Renumber version
+      run: "sed -i 's/(0, 0, 99)/(${{ env.major }}, ${{ env.minor }}, ${{ env.patch }})/g' src/addons/bl_measure/__init__.py"
+    - name: Build
+      run: cd src/addons && zip -r ${{env.name}}.zip ${{env.name}}
+    - name: Copy2Dist
+      run: mkdir src/addons/dist && cp src/addons/${{env.name}}.zip src/addons/dist/${{env.name}}.zip
+    - name: Upload Zip file to release
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: src/addons/${{env.name}}.zip
+        asset_name: ${{env.name}}.zip
+        tag: "${{env.name}}_${{env.major}}.${{env.minor}}.${{env.patch}}"
+        overwrite: true
+        body: "Package release ${{env.major}}.${{env.minor}}.${{env.patch}}"
