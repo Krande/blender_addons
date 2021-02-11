@@ -16,6 +16,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - uses: "phips28/gh-action-bump-version@master"
+      with:
+        tag-prefix: ''
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: 'Output Step'
+      env:
+        NEW_TAG: ${{ steps.version-bump.outputs.newTag }}
+      run: echo "new tag $NEW_TAG"
+    - name: Print Version
+      run: "${{ env.major }}, ${{ env.minor }}, ${{ steps.version-bump.outputs.newTag }}"
     - name: Renumber version
       run: "sed -i 's/(0, 0, 99)/(${{ env.major }}, ${{ env.minor }}, ${{ env.patch }})/g' src/addons/bl_measure/__init__.py"
     - name: Build
