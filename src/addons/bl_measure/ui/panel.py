@@ -17,7 +17,7 @@ class MeasureUtilPanel(bpy.types.Panel):
 
         layout.row().operator('view3d.simply_measure_update_check', text='Check for updates')
         if common_props.update_exists:
-            layout.row().label(text=f'update from {common_props.local_version} to {common_props.online_version}')
+            layout.row().label(text=f'Update from {common_props.local_version} to {common_props.online_version}?')
         else:
             layout.row().label(text=f'Local version \"{common_props.local_version}\" is latest')
 

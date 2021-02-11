@@ -3,7 +3,7 @@ bl_info = {
     "description": "A simple utility to make measurements",
     "author": "Kristoffer H. Andersen",
     "blender": (2, 90, 1),
-    "version": (0, 0, 1),
+    "version": (0, 0, 99),
     "location": "View3D",
     "category": "Development",
 }
