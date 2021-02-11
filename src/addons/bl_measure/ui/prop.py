@@ -1,9 +1,12 @@
 from bpy.types import PropertyGroup
-from bpy.props import (
-    FloatVectorProperty,
-    FloatProperty,
-    BoolProperty
-)
+from bpy.props import FloatVectorProperty, FloatProperty, BoolProperty, StringProperty
+
+
+class CommonProps(PropertyGroup):
+    update_exists: BoolProperty(default=False, name="Update exists?", description="If an update exists or not")
+    download_url: StringProperty(default="", name="Download URL", description="Download URL")
+    local_version: StringProperty(default="", name="Local Version", description="Local Version")
+    online_version: StringProperty(default="", name="Online Version", description="Online Version")
 
 
 class MeasureProps(PropertyGroup):
