@@ -14,3 +14,9 @@ For local development of blender addons, I recommend installing the `fake-bpy-mo
 pip install fake-bpy-module-2.91
 ```
 
+## Remaining work
+* Currently the user needs to restart Blender for (at least) the GUI portion of the addon to be updated. Ideally some 
+kind of "reload" functionality would be great. But in case there are modules\dependencies that needs a full restart of 
+  blender this might as well be the "correct way" of implementing it. 
+  
+  
