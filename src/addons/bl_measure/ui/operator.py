@@ -124,5 +124,5 @@ class SimpleMeasureAddToClipBoardOperator(bpy.types.Operator):
         start = scene_props.start
         end = scene_props.end
 
-        context.window_manager.clipboard = f"({start[0]}, {start[1]}, {start[2]})({end[0]}, {end[1]}, {end[2]})"
+        context.window_manager.clipboard = f"({start[0]}, {start[1]}, {start[2]}),({end[0]}, {end[1]}, {end[2]})"
         return {"FINISHED"}
