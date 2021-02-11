@@ -1,9 +1,10 @@
 # blender_addons
 
-Experiments with blender addons and self updating methods using github actions
+Experiments with blender addons
 
-The goal is to have the addon check for updates and allow the user to update the addon using a single click.
-Currently the addon 
+## Goals
+* Get to know the blender api by creating a "bare minimum" addon
+* Create a demo addon that checks for updates and allow the user to update the addon using a single click.
 
 ![figure](docs/figures/just_a_figure.png)
 
