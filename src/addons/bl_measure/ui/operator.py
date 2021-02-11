@@ -4,11 +4,17 @@ import numpy as np
 import os
 import shutil
 import addon_utils
+import urllib.request
 
 
 def download_to(destination, url):
+    """
+    Download file to
 
-    import urllib.request
+    :param destination: File destination
+    :param url: Https file object for download
+    :return:
+    """
 
     os.makedirs(os.path.dirname(destination), exist_ok=True)
 
@@ -23,7 +29,7 @@ class SimpleMeasureInstallUpdateOperator(bpy.types.Operator):
     bl_description = "Simply Measure update installation"
 
     def execute(self, context):
-        module_name = 'Simply Measure'
+        module_name = "Simply Measure"
         common_props = context.scene.CommonProperties
         if common_props.update_exists:
             dest_path = "c:/temp/bl_measure_latest.zip"
@@ -34,14 +40,14 @@ class SimpleMeasureInstallUpdateOperator(bpy.types.Operator):
             # Code for updating addon here
             bpy.ops.preferences.addon_install(overwrite=True, filepath=dest_path)
             # bpy.ops.preferences.addon_enable(module='Simply Measure')
-            addon_utils.enable(
-                module_name, default_set=True, persistent=False, handle_error=None)
+            addon_utils.enable(module_name, default_set=True, persistent=False, handle_error=None)
+            bpy.ops.script.reload()
             # bpy.ops.wm.save_userpref()
             # When finished
             common_props.local_version = common_props.online_version
             common_props.update_exists = False
         else:
-            print('No newer version exists')
+            print("No newer version exists")
         return {"FINISHED"}
 
 
@@ -57,19 +63,17 @@ class SimpleMeasureUpdateOperator(bpy.types.Operator):
             for addon in addon_utils.modules()
             if addon.bl_info["name"] == "Simply Measure"
         ][0]
-        common_props.local_version = f'{addon_ver[0]}.{addon_ver[1]}.{addon_ver[2]}'
+        common_props.local_version = f"{addon_ver[0]}.{addon_ver[1]}.{addon_ver[2]}"
 
         api_url = "https://api.github.com/repos/Krande/blender_addons/releases/latest"
         r = requests.get(api_url)
         content = r.json()
-        common_props.download_url = content['assets'][0]["browser_download_url"]
+        common_props.download_url = content["assets"][0]["browser_download_url"]
         tag_name = content["tag_name"]
         cver = tag_name.split("_")[-1]
         common_props.online_version = cver
         release = tuple([int(x) for x in cver.split(".")])
-        print(addon_ver)
-        print(release)
-        print(addon_ver, release)
+        print("local versus online version:", addon_ver, release)
 
         if release > addon_ver:
             print("Update Exists")
