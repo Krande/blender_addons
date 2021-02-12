@@ -1,7 +1,10 @@
 name: Publish-bl_measure
 
 # Run this workflow every time a new commit pushed to your repository
-on: push
+on:
+  push:
+    paths:
+      - 'src/bl_measure/*'
 
 env:
   major: 0
