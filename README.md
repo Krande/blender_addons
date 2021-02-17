@@ -4,7 +4,7 @@ Experiments with blender addons
 
 ## Goals
 * Get to know the blender api by creating a "bare minimum" addon
-* Create a demo addon that checks for updates and allow the user to update the addon using a single click.
+* Create a demo addon that checks for updates (using github REST api) and allow the user to update the addon using a single click.
 
 ![figure](docs/figures/just_a_figure.png)
 
