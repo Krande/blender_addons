@@ -3,6 +3,13 @@ import os
 import logging
 import pathlib
 
+def get_ifc_store():
+    # Assuming you already have blenderbim installed
+    try:
+        from blenderbim.bim.ifc import IfcStore
+    except:
+        raise ModuleNotFoundError("Installation of BlenderBIM not found. Please check your installation")
+    return IfcStore
 
 class StructuralUtilsOperator(bpy.types.Operator):
     bl_idname = "view3d.export_to_step"
@@ -18,11 +25,7 @@ class StructuralUtilsOperator(bpy.types.Operator):
         destination_file = (pathlib.Path(props.step_dest) / props.step_name).with_suffix(".stp")
         os.makedirs(destination_file.parent, exist_ok=True)
 
-        # Assuming you already have blenderbim installed
-        try:
-            from blenderbim.bim.ifc import IfcStore
-        except:
-            raise ModuleNotFoundError("Installation of BlenderBIM not found. Please check your installation")
+        IfcStore = get_ifc_store()
 
         import ifcopenshell.geom
         from ifcopenshell.geom.occ_utils import shape_tuple
@@ -93,11 +96,8 @@ class StructuralUtilAddNameToClipBoardOperator(bpy.types.Operator):
     def execute(self, context):
         scene = context.scene
         props = scene.StruUtilsProperties
-        # Assuming you already have blenderbim installed
-        try:
-            from blenderbim.bim.ifc import IfcStore
-        except:
-            raise ModuleNotFoundError("Installation of BlenderBIM not found. Please check your installation")
+
+        IfcStore = get_ifc_store()
 
         clipboard_str = ""
 
@@ -107,5 +107,5 @@ class StructuralUtilAddNameToClipBoardOperator(bpy.types.Operator):
             if props.name_clip_prefix != "":
                 clipboard_str += props.name_clip_prefix
             clipboard_str += ifc_elem.Name + "\n"
-        context.window_manager.clipboard = clipboard_str  # .rstrip()
+        context.window_manager.clipboard = clipboard_str.rstrip()
         return {"FINISHED"}
