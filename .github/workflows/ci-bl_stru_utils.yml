@@ -1,16 +1,16 @@
 name: Publish-StruUtils
 
+on:
+  push:
+    paths:
+      - 'src/addons/bl_stru_utils/*'
+
 env:
   major: 0
   minor: 0
   patch: 1
   dir_name: bl_stru_utils
   name: StruUtils
-
-on:
-  push:
-    paths:
-      - 'src/addons/$(dir_name)/*'
 
 jobs:
   build:
