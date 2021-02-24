@@ -4,7 +4,7 @@ name: Publish-bl_measure
 on:
   push:
     paths:
-      - 'src/bl_measure/*'
+      - 'src/addons/bl_measure/*'
 
 env:
   major: 0
