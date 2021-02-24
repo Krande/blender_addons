@@ -14,6 +14,10 @@ For local development of blender addons, I recommend installing the `fake-bpy-mo
 pip install fake-bpy-module-2.91
 ```
 
+and set the `Scripts` path to the "src" subfolder of your git clone of this repo (as shown below) 
+
+![Blender Preferences](docs/figures/BlenderPrefs.png)
+
 ## Remaining work
 * Currently the user needs to restart Blender for (at least) the GUI portion of the addon to be updated. Ideally some 
 kind of "reload" functionality would be great. But in case there are modules\dependencies that needs a full restart of 
