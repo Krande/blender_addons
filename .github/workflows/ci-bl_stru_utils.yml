@@ -1,15 +1,16 @@
 name: Publish-StruUtils
 
-on:
-  push:
-    paths:
-      - 'src/addons/bl_stru_utils/*'
-
 env:
   major: 0
   minor: 0
   patch: 1
+  dir_name: bl_stru_utils
   name: StruUtils
+
+on:
+  push:
+    paths:
+      - 'src/addons/$(dir_name)/*'
 
 jobs:
   build:
@@ -20,7 +21,7 @@ jobs:
     - name: Renumber version
       run: "sed -i 's/(0, 0, 99)/(${{ env.major }}, ${{ env.minor }}, ${{ env.patch }})/g' src/addons/bl_measure/__init__.py"
     - name: Build
-      run: cd src/addons && zip -r ${{env.name}}.zip ${{env.name}}
+      run: cd src/addons && zip -r ${{env.name}}.zip ${{env.dir_name}}
     - name: Copy2Dist
       run: mkdir src/addons/dist && cp src/addons/${{env.name}}.zip src/addons/dist/${{env.name}}.zip
     - name: Upload Zip file to release
