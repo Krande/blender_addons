@@ -6,3 +6,4 @@ Note! This expands on the minimum viable demo "bl_measure" (i.e. bl_measure migh
 ![Overview of addon latest](img.png)
 
 
+If you have any ideas for useful additions, please do not hesitate to add an issue or open a discussion :)
