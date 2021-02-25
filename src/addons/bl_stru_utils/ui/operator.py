@@ -118,7 +118,7 @@ class StruUtils_AddNameToClipBoard_Operator(bpy.types.Operator):
 
     def execute(self, context):
         scene = context.scene
-        props = scene.StruUtils_Measure_Properties
+        props = scene.StruUtils_Common_Properties
 
         IfcStore = get_ifc_store()
 

@@ -8,7 +8,7 @@ on:
 env:
   major: 0
   minor: 0
-  patch: 1
+  patch: 2
   dir_name: bl_stru_utils
   name: StruUtils
 

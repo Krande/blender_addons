@@ -43,6 +43,7 @@ class StruUtils_STEP_PT_Panel(bpy.types.Panel):
     def draw(self, context):
         layout = self.layout
         props = bpy.context.scene.StruUtils_STEP_Properties
+        common_props = bpy.context.scene.StruUtils_Common_Properties
 
         # Export STEP
         layout.row().operator("view3d.stru_utils_export_to_step", text="Export to STEP")
@@ -52,7 +53,7 @@ class StruUtils_STEP_PT_Panel(bpy.types.Panel):
 
         # Copy Name to clipboard
         layout.row().operator("view3d.stru_utils_copy_name_to_clipboard", text="Copy selection name(s) to clipboard")
-        layout.row().prop(props, "name_clip_prefix")
+        layout.row().prop(common_props, "name_clip_prefix")
 
 
 class StruUtils_Measure_PT_Panel(bpy.types.Panel):
