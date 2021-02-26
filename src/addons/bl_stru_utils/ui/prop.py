@@ -13,7 +13,9 @@ class StruUtils_Common_Props(PropertyGroup):
     download_url: StringProperty(default="", name="Download URL", description="Download URL")
     local_version: StringProperty(default="", name="Local Version", description="Local Version")
     online_version: StringProperty(default="", name="Online Version", description="Online Version")
-    name_clip_prefix: StringProperty(default="", name="Export Name prefix", description="Export Name prefix")
+
+    # Export Selection to Clipboard
+    name_clip_prefix: StringProperty(default="", name="Prefix", description="Export Name prefix")
 
 class StruUtils_Measure_Props(PropertyGroup):
     start: FloatVectorProperty(default=[0, 0, 0], name="start", description="Start Position of Measurement")
