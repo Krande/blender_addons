@@ -20,7 +20,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Renumber version
-      run: "sed -i 's/(0, 0, 99)/(${{ env.major }}, ${{ env.minor }}, ${{ env.patch }})/g' src/addons/bl_measure/__init__.py"
+      run: "sed -i 's/(0, 0, 99)/(${{ env.major }}, ${{ env.minor }}, ${{ env.patch }})/g' src/addons/${{ env.bl_stru_utils }}/__init__.py"
     - name: Build
       run: cd src/addons && zip -r ${{env.name}}.zip ${{env.dir_name}}
     - name: Copy2Dist
