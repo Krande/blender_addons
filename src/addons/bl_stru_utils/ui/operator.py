@@ -164,15 +164,15 @@ class StruUtils_InstallUpdate_Operator(bpy.types.Operator):
 
 class StruUtils_CheckForUpdate_Operator(bpy.types.Operator):
     bl_idname = "view3d.stru_utils_update_check"
-    bl_label = "Measure (check for update)"
-    bl_description = "Measure Data"
+    bl_label = "Check for update"
+    bl_description = "Checking for updated addons"
 
     def execute(self, context):
         common_props = context.scene.StruUtils_Common_Properties
         addon_ver = [
             addon.bl_info.get("version", (-1, -1, -1))
             for addon in addon_utils.modules()
-            if addon.bl_info["name"] == "Simply Measure"
+            if addon.bl_info["name"] == "Structural Utils"
         ][0]
         common_props.local_version = f"{addon_ver[0]}.{addon_ver[1]}.{addon_ver[2]}"
 
