@@ -1,6 +1,7 @@
-import unittest
 import os
 import shutil
+import unittest
+
 import requests
 
 pkg_link = "https://github.com/Krande/blender_addons/releases/download/latest/bl_measure.zip"

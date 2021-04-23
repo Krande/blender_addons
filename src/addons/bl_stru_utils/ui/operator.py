@@ -1,12 +1,16 @@
-import bpy
+import json
 import logging
-import pathlib
-import requests
-import numpy as np
 import os
+import pathlib
 import shutil
-import addon_utils
 import urllib.request
+from math import degrees
+
+import addon_utils
+import bpy
+import numpy as np
+import requests
+from mathutils import Vector
 
 
 def get_ifc_store():
@@ -52,11 +56,11 @@ class StruUtils_STEP_Operator(bpy.types.Operator):
 
         import ifcopenshell.geom
         from ifcopenshell.geom.occ_utils import shape_tuple
+        from OCC import BRepTools
         from OCC.IFSelect import IFSelect_RetError
         from OCC.Interface import Interface_Static_SetCVal
         from OCC.STEPControl import STEPControl_AsIs, STEPControl_Writer
         from OCC.TopoDS import TopoDS_Compound, TopoDS_Shape
-        from OCC import BRepTools
 
         assembly_mode = 1
         writer = STEPControl_Writer()
@@ -237,3 +241,155 @@ class StruUtils_AddToClipBoard_Operator(bpy.types.Operator):
 
         context.window_manager.clipboard = f"({start[0]}, {start[1]}, {start[2]}),({end[0]}, {end[1]}, {end[2]})"
         return {"FINISHED"}
+
+
+class StruUtils_ViewpointsCreate_Operator(bpy.types.Operator):
+    bl_idname = "view3d.stru_utils_viewpoints_create"
+    bl_label = "Viewpoints (Create)"
+    bl_description = "Create Viewpoints"
+
+    def execute(self, context):
+        scene = context.scene
+        props = scene.StruUtils_Common_Properties
+        coll = get_collection(props.view_coll_name, scene)
+        create_camera("MyStruView", coll)
+
+        return {"FINISHED"}
+
+
+class StruUtils_ViewpointsExport_Operator(bpy.types.Operator):
+    bl_idname = "view3d.stru_utils_viewpoints_export"
+    bl_label = "Viewpoints (Export)"
+    bl_description = "Export Viewpoints"
+
+    def execute(self, context):
+        scene = context.scene
+        props = scene.StruUtils_Common_Properties
+        vc_name = props.view_coll_name
+        r = bpy.data.collections.get(vc_name)
+        if r is None:
+            print(f'No "{vc_name}" collection found. Note! All cameras must be in the "{vc_name}" collection')
+            return {"FINISHED"}
+
+        data = import_views(props)
+
+        for obj in r.objects:
+            if obj.type == "CAMERA":
+                quat = obj.matrix_world.to_quaternion()
+                direction = quat @ Vector((0.0, 0.0, -1.0))
+                up = obj.matrix_world.to_quaternion() @ Vector((0.0, 1.0, 0.0))
+
+                data[obj.name] = {
+                    "location": list(obj.location),
+                    "direction": list(direction),
+                    "up_vector": list(up),
+                    "fov": float(degrees(obj.data.angle)),
+                    "view_type": obj.data.type,
+                    "ortho_scale": obj.data.ortho_scale,
+                    "quaternion": list(quat),
+                    "rotation_euler": list(obj.rotation_euler),
+                }
+
+        with open(props.view_data_dest, "w") as f:
+            json.dump(data, f)
+
+        return {"FINISHED"}
+
+
+class StruUtils_ViewpointsImport_Operator(bpy.types.Operator):
+    bl_idname = "view3d.stru_utils_viewpoints_import"
+    bl_label = "Viewpoints (Import)"
+    bl_description = "Import Viewpoints"
+
+    def execute(self, context):
+        scene = context.scene
+        props = scene.StruUtils_Common_Properties
+
+        data = import_views(props)
+        coll = get_collection(props.view_coll_name, scene)
+        for name, view_props in data.items():
+            cam = bpy.data.cameras.get(name)
+            if cam is not None:
+                print(f'A Camera named "{name}" alredy exists. Will skip for now')
+                continue
+            create_camera(name, coll, view_props)
+
+        return {"FINISHED"}
+
+
+class StruUtils_ViewpointsClear_Operator(bpy.types.Operator):
+    bl_idname = "view3d.stru_utils_viewpoints_clear"
+    bl_label = "Viewpoints (Clear)"
+    bl_description = "Clear All Viewpoints"
+
+    def execute(self, context):
+        # Get the current scene
+        scene = context.scene
+        props = scene.StruUtils_Common_Properties
+
+        objs = bpy.data.objects
+        coll = get_collection(props.view_coll_name, scene)
+        for obj in coll.objects:
+            objs.remove(objs[obj.name], do_unlink=True)
+
+        return {"FINISHED"}
+
+
+def orient_camera(camera, rotation, location):
+    camera.rotation_mode = "XYZ"
+    camera.rotation_euler[0] = rotation[0]
+    camera.rotation_euler[1] = rotation[1]
+    camera.rotation_euler[2] = rotation[2]
+    camera.location = location
+
+
+def create_camera(name, coll, view_props=None):
+    """
+
+    :param name:
+    :param coll:
+    :param view_props:
+    :return:
+    """
+    camera_data = bpy.data.cameras.new(name=name)
+    cam = bpy.data.objects.new(name, camera_data)
+    coll.objects.link(cam)
+
+    if view_props is None:
+        area = get_current_3d_view()
+        space = area.spaces[0]
+        r3d = space.region_3d
+        cam.location = r3d.view_location
+    else:
+        orient_camera(cam, view_props["rotation_euler"], view_props["location"])
+
+
+def get_current_3d_view():
+    for area in bpy.context.screen.areas:
+        if area.type == "VIEW_3D":
+            return area
+    else:
+        logging.error("No 3D views currently active")
+
+
+def import_views(props):
+    dfile = pathlib.Path(props.view_data_dest)
+    if dfile.exists():
+        with open(props.view_data_dest, "r") as f:
+            data = json.load(f)
+    else:
+        os.makedirs(dfile.parent, exist_ok=True)
+        data = dict()
+    return data
+
+
+def get_collection(vc_name, scene):
+    r = bpy.data.collections.get(vc_name)
+    if r is None:
+        print(f'No "{vc_name}" collection found. Note! All cameras must be in the "{vc_name}" collection')
+        coll = bpy.data.collections.new(vc_name)
+        scene.collection.children.link(coll)
+    else:
+        coll = bpy.data.collections.get(vc_name)
+
+    return coll

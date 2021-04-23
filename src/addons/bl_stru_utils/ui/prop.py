@@ -1,5 +1,5 @@
+from bpy.props import BoolProperty, FloatProperty, FloatVectorProperty, StringProperty
 from bpy.types import PropertyGroup
-from bpy.props import StringProperty, BoolProperty, FloatVectorProperty, FloatProperty
 
 
 class StruUtils_STEP_Props(PropertyGroup):
@@ -16,6 +16,13 @@ class StruUtils_Common_Props(PropertyGroup):
 
     # Export Selection to Clipboard
     name_clip_prefix: StringProperty(default="", name="Prefix", description="Export Name prefix")
+
+    # Export Viewpoints
+    view_coll_name: StringProperty(default="StruViews", name="Views Name", description="Viewpoints Collection Name")
+    view_data_dest: StringProperty(
+        default="c:/ada/data/views.json", name="Viewpoints data file", description="Viewpoints export path"
+    )
+
 
 class StruUtils_Measure_Props(PropertyGroup):
     start: FloatVectorProperty(default=[0, 0, 0], name="start", description="Start Position of Measurement")

@@ -1,10 +1,11 @@
-import bpy
-import requests
-import numpy as np
 import os
 import shutil
-import addon_utils
 import urllib.request
+
+import addon_utils
+import bpy
+import numpy as np
+import requests
 
 
 def download_to(destination, url):

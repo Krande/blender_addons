@@ -1,5 +1,6 @@
 import bpy
-from . import prop, operator, panel
+
+from . import operator, panel, prop
 
 classes = [
     prop.MeasureProps,
