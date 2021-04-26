@@ -280,14 +280,23 @@ class StruUtils_ViewpointsExport_Operator(bpy.types.Operator):
                 up = obj.matrix_world.to_quaternion() @ Vector((0.0, 1.0, 0.0))
 
                 data[obj.name] = {
-                    "location": list(obj.location),
-                    "direction": list(direction),
-                    "up_vector": list(up),
+                    "location": tuple(obj.location),
+                    "direction": tuple(direction),
+                    "up_vector": tuple(up),
                     "fov": float(degrees(obj.data.angle)),
+                    "fov_x": float(degrees(obj.data.angle_x)),
+                    "fov_y": float(degrees(obj.data.angle_y)),
+                    "lens": float(obj.data.lens),
                     "view_type": obj.data.type,
                     "ortho_scale": obj.data.ortho_scale,
-                    "quaternion": list(quat),
-                    "rotation_euler": list(obj.rotation_euler),
+                    "quaternion": tuple(quat),
+                    "rotation_euler": tuple(obj.rotation_euler),
+                    "clip_start": obj.data.clip_start,
+                    "clip_end": obj.data.clip_end,
+                    "shift_x": obj.data.shift_x,
+                    "shift_y": obj.data.shift_y,
+                    "sensor_height": obj.data.sensor_height,
+                    "sensor_width": obj.data.sensor_width
                 }
 
         with open(props.view_data_dest, "w") as f:
