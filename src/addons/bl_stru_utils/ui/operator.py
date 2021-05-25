@@ -77,7 +77,7 @@ class StruUtils_STEP_Operator(bpy.types.Operator):
         fi = IfcStore.get_file()
 
         ifc_settings = ifcopenshell.geom.settings()
-        # ifc_settings.set(ifc_settings.USE_PYTHON_OPENCASCADE, True)
+        ifc_settings.set(ifc_settings.USE_PYTHON_OPENCASCADE, True)
         ifc_settings.set(ifc_settings.SEW_SHELLS, True)
         ifc_settings.set(ifc_settings.WELD_VERTICES, True)
         # ifc_settings.set(ifc_settings.INCLUDE_CURVES, True)
