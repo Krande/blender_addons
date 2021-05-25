@@ -9,9 +9,10 @@ on:
 env:
   major: 0
   minor: 0
-  patch: 5
+  patch: 6
   dir_name: bl_stru_utils
   name: StruUtils
+  tmp_dir: _dist
 
 jobs:
   build:
@@ -21,15 +22,17 @@ jobs:
     - uses: actions/checkout@v2
     - name: Renumber version
       run: "sed -i 's/(0, 0, 99)/(${{ env.major }}, ${{ env.minor }}, ${{ env.patch }})/g' src/addons/${{ env.dir_name }}/__init__.py"
+    - name: Add Depecencies to Package
+      run: cd src/addons && make dist PLATFORM=win PYVERSION=py37
     - name: Build
-      run: cd src/addons && zip -r ${{env.name}}.zip ${{env.dir_name}}
+      run: cd src/addons/${{env.tmp_dir}} && zip -r ${{env.name}}.zip ${{env.dir_name}}
     - name: Copy2Dist
-      run: mkdir src/addons/dist && cp src/addons/${{env.name}}.zip src/addons/dist/${{env.name}}.zip
+      run: mkdir src/addons/${{env.tmp_dir}}/dist && cp src/addons/${{env.tmp_dir}}/${{env.name}}.zip src/addons/${{env.tmp_dir}}/dist/${{env.name}}.zip
     - name: Upload Zip file to release
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: src/addons/${{env.name}}.zip
+        file: src/addons/${{env.tmp_dir}}/${{env.name}}.zip
         asset_name: ${{env.name}}.zip
         tag: "${{env.name}}_${{env.major}}.${{env.minor}}.${{env.patch}}"
         overwrite: true

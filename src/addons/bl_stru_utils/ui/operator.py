@@ -56,11 +56,11 @@ class StruUtils_STEP_Operator(bpy.types.Operator):
 
         import ifcopenshell.geom
         from ifcopenshell.geom.occ_utils import shape_tuple
-        from OCC import BRepTools
-        from OCC.IFSelect import IFSelect_RetError
-        from OCC.Interface import Interface_Static_SetCVal
-        from OCC.STEPControl import STEPControl_AsIs, STEPControl_Writer
-        from OCC.TopoDS import TopoDS_Compound, TopoDS_Shape
+        from OCC.Core import BRepTools
+        from OCC.Core.IFSelect import IFSelect_RetError
+        from OCC.Core.Interface import Interface_Static_SetCVal
+        from OCC.Core.STEPControl import STEPControl_AsIs, STEPControl_Writer
+        from OCC.Core.TopoDS import TopoDS_Compound, TopoDS_Shape
 
         assembly_mode = 1
         writer = STEPControl_Writer()

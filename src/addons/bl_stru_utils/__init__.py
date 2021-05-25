@@ -1,3 +1,4 @@
+
 bl_info = {
     "name": "Structural Utils",
     "description": "Utilities that I needed and that others might find useful",
@@ -8,7 +9,12 @@ bl_info = {
     "category": "Development",
 }
 
+import os
+import site
 from .ui import register, unregister
+
+cwd = os.path.dirname(os.path.realpath(__file__))
+site.addsitedir(os.path.join(cwd, "libs", "site", "packages"))
 
 if __name__ == "__main__":
     register()
