@@ -3,7 +3,7 @@ name: Publish-StruUtils
 on:
   push:
     paths:
-      - 'src/addons/bl_stru_utils/*'
+      - 'src/addons/bl_stru_utils/**'
       - '.github/workflows/ci-bl_stru_utils.yml'
 
 env:
