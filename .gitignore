@@ -1,3 +1,3 @@
 .idea
 _dist
-packages/OCC/*
+src/addons/bl_stru_utils/libs/site/packages

@@ -9,7 +9,7 @@ on:
 env:
   major: 0
   minor: 0
-  patch: 6
+  patch: 7
   dir_name: bl_stru_utils
   name: StruUtils
   tmp_dir: _dist
@@ -33,7 +33,7 @@ jobs:
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: src/addons/${{env.tmp_dir}}/${{env.name}}.zip
-        asset_name: ${{env.name}}.zip
+        asset_name: ${{env.name}}-${{env.major}}.${{env.minor}}.${{env.patch}}.zip
         tag: "${{env.name}}_${{env.major}}.${{env.minor}}.${{env.patch}}"
         overwrite: true
         body: "Package release ${{env.major}}.${{env.minor}}.${{env.patch}}"
