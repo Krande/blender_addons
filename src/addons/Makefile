@@ -7,11 +7,14 @@ ADDON:=bl_stru_utils
 ifeq ($(PLATFORM), win)
 	OCE_URL:=https://anaconda.org/conda-forge/occt/7.5.1/download/win-64/occt-7.5.1-h60997fb_2.tar.bz2
 	TBB_URL:=https://anaconda.org/conda-forge/tbb/2021.2.0/download/win-64/tbb-2021.2.0-h2d74725_0.tar.bz2
+
 ifeq ($(PYVERSION), py37)
 	PYTHONOCC_URL:=https://anaconda.org/conda-forge/pythonocc-core/7.5.1/download/win-64/pythonocc-core-7.5.1-py37h8c6f293_0.tar.bz2
+	H5PY_URL:=https://anaconda.org/conda-forge/h5py/3.3.0/download/win-64/h5py-3.3.0-nompi_py37he280515_100.tar.bz2
 endif
 ifeq ($(PYVERSION), py39)
 	PYTHONOCC_URL:=https://anaconda.org/conda-forge/pythonocc-core/7.5.1/download/win-64/pythonocc-core-7.5.1-py39h5d9d39a_0.tar.bz2
+	H5PY_URL:=https://anaconda.org/conda-forge/h5py/3.3.0/download/win-64/h5py-3.3.0-nompi_py39hf27771d_100.tar.bz2
 endif
 endif
 
@@ -50,6 +53,10 @@ endif
 	cd $(tmp_dir)/working && wget $(TBB_URL)
 	cd $(tmp_dir)/working && tar -xjvf tbb*
 	cd $(tmp_dir)/working && cp -r bin/* ../$(ADDON)/libs/site/packages/OCC/Core/
+
+	# Install H5PY
+	mkdir $(tmp_dir)/working
+
 
 .PHONY: clean
 clean:
