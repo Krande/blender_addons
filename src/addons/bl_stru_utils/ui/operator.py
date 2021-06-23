@@ -402,3 +402,6 @@ def get_collection(vc_name, scene):
         coll = bpy.data.collections.get(vc_name)
 
     return coll
+
+def read_fem_cache():
+    import h5py
