@@ -52,7 +52,10 @@ class StruUtils_STEP_PT_Panel(bpy.types.Panel):
         layout.row().prop(props, "step_schema")
 
         # Copy Name to clipboard
-        layout.row().operator("view3d.stru_utils_copy_name_to_clipboard", text="Copy selection name(s) to clipboard")
+        layout.row().operator(
+            "view3d.stru_utils_copy_name_to_clipboard",
+            text="Copy selection name(s) to clipboard",
+        )
         layout.row().prop(common_props, "name_clip_prefix")
 
 
@@ -67,7 +70,10 @@ class StruUtils_Measure_PT_Panel(bpy.types.Panel):
         layout = self.layout
         scene_props = context.scene.StruUtils_Measure_Properties
 
-        layout.row().operator("view3d.stru_utils_get_coord_from_3dcursor", text="Get position from 3d cursor")
+        layout.row().operator(
+            "view3d.stru_utils_get_coord_from_3dcursor",
+            text="Get position from 3d cursor",
+        )
 
         layout.row().prop(scene_props, "on_start")
         layout.row().prop(scene_props, "start")
@@ -76,4 +82,28 @@ class StruUtils_Measure_PT_Panel(bpy.types.Panel):
         layout.row().prop(scene_props, "length_comp")
         layout.row().prop(scene_props, "length")
 
-        layout.row().operator("view3d.stru_utils_copy_coords_to_clipboard", text="Copy coords to clipboard")
+        layout.row().operator(
+            "view3d.stru_utils_copy_coords_to_clipboard",
+            text="Copy coords to clipboard",
+        )
+
+
+class StruUtils_Viewpoints_PT_Panel(bpy.types.Panel):
+    bl_idname = "StruUtils_Viewpoints_PT_Panel"
+    bl_label = "Viewpoints"
+    bl_space_type = "VIEW_3D"
+    bl_region_type = "UI"
+    bl_category = "StruUtils"
+
+    def draw(self, context):
+        layout = self.layout
+        common_props = bpy.context.scene.StruUtils_Common_Properties
+        layout.row().prop(common_props, "view_coll_name")
+        layout.row().prop(common_props, "view_data_dest")
+        layout.row().operator("view3d.stru_utils_viewpoints_create", text="Create Viewpoint")
+        layout.row().operator("view3d.stru_utils_viewpoints_export", text="Export Viewpoints")
+        layout.row().operator(
+            "view3d.stru_utils_viewpoints_import",
+            text="Import Viewpoints",
+        )
+        layout.row().operator("view3d.stru_utils_viewpoints_clear", text="Clear all Viewpoints")

@@ -1,5 +1,5 @@
+from bpy.props import BoolProperty, FloatProperty, FloatVectorProperty, StringProperty
 from bpy.types import PropertyGroup
-from bpy.props import FloatVectorProperty, FloatProperty, BoolProperty, StringProperty
 
 
 class CommonProps(PropertyGroup):

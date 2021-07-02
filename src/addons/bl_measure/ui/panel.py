@@ -15,18 +15,18 @@ class MeasureUtilPanel(bpy.types.Panel):
 
         layout.row()
 
-        layout.row().operator('view3d.simply_measure_update_check', text='Check For Update')
+        layout.row().operator("view3d.simply_measure_update_check", text="Check For Update")
         if common_props.update_exists:
-            layout.row().label(text=f'Update from {common_props.local_version} to {common_props.online_version}?')
+            layout.row().label(text=f"Update from {common_props.local_version} to {common_props.online_version}?")
         else:
-            layout.row().label(text=f'Local version \"{common_props.local_version}\" is latest')
+            layout.row().label(text=f'Local version "{common_props.local_version}" is latest')
 
         update_row = layout.row(align=True)
         update_row.enabled = common_props.update_exists
 
-        update_row.operator('view3d.simply_measure_install_update', text='Install update')
+        update_row.operator("view3d.simply_measure_install_update", text="Install update")
 
-        layout.row().operator('view3d.get_coord_from_3dcursor', text='Get position from 3d cursor')
+        layout.row().operator("view3d.get_coord_from_3dcursor", text="Get position from 3d cursor")
 
         layout.row().prop(scene_props, "on_start")
         layout.row().prop(scene_props, "start")
@@ -35,5 +35,4 @@ class MeasureUtilPanel(bpy.types.Panel):
         layout.row().prop(scene_props, "length_comp")
         layout.row().prop(scene_props, "length")
 
-        layout.row().operator('view3d.copy_coords_to_clipboard', text='Copy coords to clipboard')
-
+        layout.row().operator("view3d.copy_coords_to_clipboard", text="Copy coords to clipboard")

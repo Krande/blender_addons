@@ -1,5 +1,6 @@
 import bpy
-from . import prop, operator, panel
+
+from . import operator, panel, prop
 
 classes = [
     # Props
@@ -13,11 +14,15 @@ classes = [
     operator.StruUtils_AddToClipBoard_Operator,
     operator.StruUtils_STEP_Operator,
     operator.StruUtils_AddNameToClipBoard_Operator,
+    operator.StruUtils_ViewpointsExport_Operator,
+    operator.StruUtils_ViewpointsCreate_Operator,
+    operator.StruUtils_ViewpointsImport_Operator,
+    operator.StruUtils_ViewpointsClear_Operator,
     # Panels
     panel.StruUtils_STEP_PT_Panel,
     panel.StruUtils_Measure_PT_Panel,
     panel.StruUtils_Update_PT_Panel,
-
+    panel.StruUtils_Viewpoints_PT_Panel
 ]
 
 
