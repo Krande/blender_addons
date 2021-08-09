@@ -19,10 +19,10 @@ classes = [
     operator.StruUtils_ViewpointsImport_Operator,
     operator.StruUtils_ViewpointsClear_Operator,
     # Panels
-    panel.StruUtils_STEP_PT_Panel,
-    panel.StruUtils_Measure_PT_Panel,
-    panel.StruUtils_Update_PT_Panel,
-    panel.StruUtils_Viewpoints_PT_Panel
+    panel.SU_PT_STEP_IO,
+    panel.SU_PT_Measure,
+    panel.SU_PT_Update,
+    panel.SU_PT_Viewpoints
 ]
 
 

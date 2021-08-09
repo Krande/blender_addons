@@ -8,8 +8,8 @@ import bpy
 #     bl_category = "BlenderBIM"
 
 
-class StruUtils_Update_PT_Panel(bpy.types.Panel):
-    bl_idname = "StruUtils_Update_PT_Panel"
+class SU_PT_Update(bpy.types.Panel):
+    bl_idname = "SU_PT_Update"
     bl_label = "Updates"
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
@@ -33,8 +33,8 @@ class StruUtils_Update_PT_Panel(bpy.types.Panel):
         update_row.operator("view3d.stru_utils_install_update", text="Install update")
 
 
-class StruUtils_STEP_PT_Panel(bpy.types.Panel):
-    bl_idname = "StruUtils_STEP_PT_Panel"
+class SU_PT_STEP_IO(bpy.types.Panel):
+    bl_idname = "SU_PT_STEP_IO"
     bl_label = "STEP IO"
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
@@ -59,8 +59,8 @@ class StruUtils_STEP_PT_Panel(bpy.types.Panel):
         layout.row().prop(common_props, "name_clip_prefix")
 
 
-class StruUtils_Measure_PT_Panel(bpy.types.Panel):
-    bl_idname = "StruUtils_Measure_PT_Panel"
+class SU_PT_Measure(bpy.types.Panel):
+    bl_idname = "SU_PT_Measure"
     bl_label = "Simply Measure"
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
@@ -88,8 +88,8 @@ class StruUtils_Measure_PT_Panel(bpy.types.Panel):
         )
 
 
-class StruUtils_Viewpoints_PT_Panel(bpy.types.Panel):
-    bl_idname = "StruUtils_Viewpoints_PT_Panel"
+class SU_PT_Viewpoints(bpy.types.Panel):
+    bl_idname = "SU_PT_Viewpoints"
     bl_label = "Viewpoints"
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
