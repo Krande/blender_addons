@@ -45,9 +45,9 @@ endif
 	cd $(tmp_dir)/working && tar -xjvf oc*
 	cd $(tmp_dir)/working && cp -r Library/bin/* ../$(ADDON)/libs/site/packages/OCC/Core
 
-	# Install TBB (Required by OCE)
 	rm -rf $(tmp_dir)/working
 
+	# Install TBB (Required by OCE)
 	# Required by OpenCascade
 	mkdir $(tmp_dir)/working
 	cd $(tmp_dir)/working && wget $(TBB_URL)
