@@ -1,20 +1,20 @@
-
 bl_info = {
     "name": "Structural Utils",
     "description": "Utilities that I needed and that others might find useful",
     "author": "Kristoffer H. Andersen",
-    "blender": (2, 93, 1),
+    "blender": (3, 0, 0),
     "version": (0, 0, 99),
     "location": "View3D",
     "category": "Development",
 }
 
-import os
+import pathlib
 import site
+
 from .ui import register, unregister
 
-cwd = os.path.dirname(os.path.realpath(__file__))
-site.addsitedir(os.path.join(cwd, "libs", "site", "packages"))
+cwd = pathlib.Path(__file__).parent.resolve().absolute()
+site.addsitedir(str(cwd / "libs/site/packages"))
 
 if __name__ == "__main__":
     register()
