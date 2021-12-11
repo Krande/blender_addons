@@ -5,8 +5,8 @@ ADDON:=bl_stru_utils
 
 # Download OCC
 ifeq ($(PLATFORM), win)
-	OCE_URL:=https://anaconda.org/conda-forge/occt/7.5.1/download/win-64/occt-7.5.1-h60997fb_2.tar.bz2
-	TBB_URL:=https://anaconda.org/conda-forge/tbb/2021.2.0/download/win-64/tbb-2021.2.0-h2d74725_0.tar.bz2
+	OCCT_URL:=https://anaconda.org/conda-forge/occt/7.5.1/download/win-64/occt-7.5.1-h60997fb_2.tar.bz2
+	TBB_URL:=https://anaconda.org/conda-forge/tbb/2021.4.0/download/win-64/tbb-2021.4.0-h2d74725_1.tar.bz2
 
 ifeq ($(PYVERSION), py39)
 	PYTHONOCC_URL:=https://anaconda.org/conda-forge/pythonocc-core/7.5.1/download/win-64/pythonocc-core-7.5.1-py39h5d9d39a_0.tar.bz2
@@ -44,15 +44,15 @@ endif
 
 	rm -rf $(tmp_dir)/working
 
-	# Install OCE (Required by PythonOCC-core)
+	# Install OCCT (Required by PythonOCC-core)
 	mkdir $(tmp_dir)/working
-	cd $(tmp_dir)/working && wget $(OCE_URL)
+	cd $(tmp_dir)/working && wget $(OCCT_URL)
 	cd $(tmp_dir)/working && tar -xjvf oc*
 	cd $(tmp_dir)/working && cp -r Library/bin/* ../$(ADDON)/libs/site/packages/OCC/Core
 
 	rm -rf $(tmp_dir)/working
 
-	# Install TBB (Required by OCE)
+	# Install TBB (Required by OCCT)
 	# Required by OpenCascade
 	mkdir $(tmp_dir)/working
 	cd $(tmp_dir)/working && wget $(TBB_URL)
