@@ -11,7 +11,7 @@ Experiments with blender addons
 For local development of blender addons, I recommend installing the `fake-bpy-module` from https://github.com/nutti/fake-bpy-module using
 
 ```
-pip install fake-bpy-module-2.93
+pip install fake-bpy-module-3.2
 ```
 
 and set the `Scripts` path to the "src" subfolder of your git clone of this repo (as shown below) 

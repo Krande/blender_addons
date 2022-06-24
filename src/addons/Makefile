@@ -1,5 +1,5 @@
 VERSION:=`date '+%y%m%d'`
-PYVERSION:=py37
+PYVERSION:=py310
 tmp_dir:=_dist
 ADDON:=bl_stru_utils
 
@@ -13,6 +13,10 @@ ifeq ($(PYVERSION), py37)
 	H5PY_URL:=https://anaconda.org/conda-forge/h5py/3.2.1/download/win-64/h5py-3.2.1-nompi_py37he280515_100.tar.bz2
 endif
 ifeq ($(PYVERSION), py39)
+	PYTHONOCC_URL:=https://anaconda.org/conda-forge/pythonocc-core/7.5.1/download/win-64/pythonocc-core-7.5.1-py39h5d9d39a_0.tar.bz2
+	H5PY_URL:=https://anaconda.org/conda-forge/h5py/3.2.1/download/win-64/h5py-3.2.1-nompi_py39hf27771d_100.tar.bz2
+endif
+ifeq ($(PYVERSION), py310)
 	PYTHONOCC_URL:=https://anaconda.org/conda-forge/pythonocc-core/7.5.1/download/win-64/pythonocc-core-7.5.1-py39h5d9d39a_0.tar.bz2
 	H5PY_URL:=https://anaconda.org/conda-forge/h5py/3.2.1/download/win-64/h5py-3.2.1-nompi_py39hf27771d_100.tar.bz2
 endif

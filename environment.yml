@@ -1,0 +1,16 @@
+name: blenderdev
+channels:
+  - krande/label/dev
+  - conda-forge
+dependencies:
+  - ifcopenshell
+  - python==3.10
+  - pyparsing
+  - pydantic
+  - pytest
+  - toposort
+  - pip
+  - pip:
+      - edgedb
+      - rdflib
+      - fake-bpy-module-3.2
