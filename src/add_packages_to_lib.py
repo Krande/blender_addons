@@ -11,12 +11,23 @@ CF = "https://anaconda.org/conda-forge/"
 
 
 def download_to(url, destination_dir):
-    destination_dir = pathlib.Path(destination_dir)
+    destination_dir = pathlib.Path(destination_dir).resolve().absolute()
     os.makedirs(destination_dir, exist_ok=True)
 
-    response = requests.get(url)
-    with tarfile.open(response.content) as tar:
-        tar.extractall(destination_dir)
+    # response = requests.get(url)
+    got = requests.get(url, stream=True)
+    with tarfile.open(fileobj=got.raw, mode='r|*') as tar:
+        for info in tar:
+            if info.isreg():
+                ent = tar.extractfile(info)
+                # now process ent as a file, however you like
+                dest_name = info.name.split('site-packages')[-1]
+                if dest_name.startswith('/'):
+                    dest_name = dest_name[1:]
+                dest_file = destination_dir / dest_name
+                os.makedirs(dest_file.parent, exist_ok=True)
+                with open(dest_file, 'wb') as f:
+                    f.write(ent.read())
 
 
 
@@ -42,5 +53,6 @@ subprocess.call([python_exe, "-m", "pip", "install", "-U", *packages, "-t", targ
 
 # Install conda packages
 occ_762_win_py310 = CF + "pythonocc-core/7.6.2/download/win-64/pythonocc-core-7.6.2-py310hf04ff9d_0.tar.bz2"
-download_to(occ_762_win_py310, "temp")
+download_to(occ_762_win_py310, target)
+
 print("FINISHED")
